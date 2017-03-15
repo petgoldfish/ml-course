@@ -5,6 +5,7 @@ function [X_norm, mu, sigma] = featureNormalize(X)
 %   is 1. This is often a good preprocessing step to do when
 %   working with learning algorithms.
 
+% stores the number of columns of X (features)
 n = size(X, 2)
 
 % You need to set these values correctly
@@ -28,13 +29,11 @@ sigma = zeros(1, n);
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
 
-for i = 1:n
-	
-	mu(:, i) = mean(X(:, i));
-	sigma(:, i) = std(X(:, i));
-	X_norm(:, i) = X_norm(:, i) .- mu(:, i);
-	X_norm(:, i) = X_norm(:, i) ./ sigma(:, i);
+mu = mean(X);
+sigma = std(X);
 
+for i = 1:size(X,2)
+    X_norm(:,i) = (X(:,i) - mu(i)) / sigma(i);
 end
 
 % ============================================================
